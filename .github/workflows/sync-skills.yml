@@ -41,7 +41,7 @@ jobs:
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       # Executa o script que lê o skills.json e atualiza cada pasta de skill
       - name: Executar script de sincronizacao

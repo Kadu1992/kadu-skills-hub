@@ -66,14 +66,20 @@ def sincronizar_skill(skill: dict, pasta_destino_base: Path):
             print(f"Aviso: Falha ao clonar {repo}: {resultado.stderr.strip()}")
             return False
 
-        # Cria ou limpa a pasta da skill no catalogo garantindo compatibilidade com Windows
-        def _remover_erro(action, name, exc):
-            import stat
-            os.chmod(name, stat.S_IWRITE)
-            action(name)
-
+        # Cria ou limpa a pasta da skill no catalogo garantindo compatibilidade total (Python 3.10, 3.11, 3.12+)
         if pasta_final_skill.exists():
-            shutil.rmtree(pasta_final_skill, onerror=_remover_erro if sys.version_info < (3, 12) else None, onexc=_remover_erro if sys.version_info >= (3, 12) else None)
+            import stat
+            if sys.version_info >= (3, 12):
+                def _tratar_erro_312(action, name, exc):
+                    os.chmod(name, stat.S_IWRITE)
+                    action(name)
+                shutil.rmtree(pasta_final_skill, onexc=_tratar_erro_312)
+            else:
+                def _tratar_erro_legacy(action, name, exc_info):
+                    os.chmod(name, stat.S_IWRITE)
+                    action(name)
+                shutil.rmtree(pasta_final_skill, onerror=_tratar_erro_legacy)
+
         pasta_final_skill.mkdir(parents=True, exist_ok=True)
 
         # Copia todos os arquivos ignorando a pasta .git interna
