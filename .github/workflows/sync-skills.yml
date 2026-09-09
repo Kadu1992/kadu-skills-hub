@@ -1,0 +1,68 @@
+# ==============================================================================
+# Automação de Sincronização do Catálogo de Skills (Kadu Skills Hub)
+# O que este workflow faz: Mantém todas as pastas da pasta 'skills/' atualizadas
+# com os seus respectivos repositórios originais no GitHub.
+# Como funciona no fluxo: Pode ser disparado por horário (todo dia às 09:00 BRT),
+# manualmente por botão de 1 clique, ou instantaneamente quando uma skill recebe push.
+# ==============================================================================
+
+name: Sincronizar Skills do Catalogo
+
+on:
+  # 1. Disparo Agendado: Todos os dias às 09:00 da manhã (Horário de Brasília)
+  # Nota: 12:00 UTC equivale a 09:00 no Brasil (UTC-3)
+  schedule:
+    - cron: '0 12 * * *'
+
+  # 2. Disparo Manual: Cria o botão "Run workflow" na aba Actions do GitHub
+  workflow_dispatch:
+
+  # 3. Disparo Instantâneo: Recebe o aviso enviado diretamente por uma skill
+  repository_dispatch:
+    types: [sync-skills]
+
+# Concede permissão para a automação gravar e enviar commits para este repositório
+permissions:
+  contents: write
+
+jobs:
+  sincronizar-skills:
+    name: Sincronizar Catalogo
+    runs-on: ubuntu-latest
+
+    steps:
+      # Baixa o repositório kadu-skills-hub
+      - name: Baixar codigo do Hub
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Configura o ambiente Python para rodar o script de sincronização
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Executa o script que lê o skills.json e atualiza cada pasta de skill
+      - name: Executar script de sincronizacao
+        run: python scripts/sync_catalog.py
+
+      # Verifica se houve alteração nos arquivos e envia o commit caso haja novidades
+      - name: Salvar e enviar alteracoes para o Hub
+        run: |
+          # Configura a identidade do bot do GitHub Actions
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Adiciona todas as pastas de skills atualizadas e o catálogo
+          git add skills/ skills.json
+
+          # Se houver mudanças no git status, faz o commit e o push
+          if ! git diff --cached --quiet; then
+            echo "Novas atualizacoes encontradas! Criando commit..."
+            git commit -m "chore(catalog): sincroniza skills do catalogo automaticamente"
+            git push
+            echo "Hub atualizado com sucesso!"
+          else
+            echo "Nenhuma alteracao detectada. Todas as skills ja estao 100% em dia!"
+          fi
