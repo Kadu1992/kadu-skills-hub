@@ -4,5 +4,23 @@
     "repo": "Kadu1992/ai-tutor-video",
     "branch": "main",
     "description": "Tutor de estudos baseado em evidências sincronizado com aulas em vídeo do YouTube e portal de cursos."
+  },
+  {
+    "id": "archify-presenter",
+    "repo": "Kadu1992/archify-presenter",
+    "branch": "main",
+    "description": "Diagramas e apresentações interativas de arquitetura HTML/SVG com ponteiro laser, modo foco de fala e 6 presets corporativos."
+  },
+  {
+    "id": "questions-and-learning",
+    "repo": "Kadu1992/questions-and-learning",
+    "branch": "main",
+    "description": "Conversão inteligente de anotações e dúvidas brutas (questions.md) em Markdown estruturado por temas e respostas técnicas com prioridades."
+  },
+  {
+    "id": "chat-context",
+    "repo": "Kadu1992/chat-context",
+    "branch": "main",
+    "description": "Persistência global de contexto entre sessões de chat com current_context.md e snapshots históricos imutáveis ISO 8601."
   }
 ]
