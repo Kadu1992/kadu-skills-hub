@@ -4,6 +4,24 @@ Converte o arquivo `questions.md` de notas brutas em dois arquivos Markdown vers
 
 ---
 
+## 📦 Instalação
+
+Instale diretamente no seu projeto com um único comando:
+
+```bash
+npx skills add Kadu1992/questions-and-learning
+```
+
+Ou instale globalmente na sua máquina/IDE:
+
+```bash
+npx skills add Kadu1992/questions-and-learning -g
+```
+
+> **Dica**: Esta skill também pode ser instalada via catálogo central [Kadu Skills Hub](https://github.com/Kadu1992/kadu-skills-hub) (`npx skills add Kadu1992/kadu-skills-hub`).
+
+---
+
 ## ⚡ Ativação
 
 A skill pode ser acionada em múltiplos cenários:

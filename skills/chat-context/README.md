@@ -4,6 +4,24 @@ Persistência, gerenciamento em tempo real e consulta histórica de contextos de
 
 ---
 
+## 📦 Instalação
+
+Instale diretamente no seu projeto com um único comando:
+
+```bash
+npx skills add Kadu1992/chat-context
+```
+
+Ou instale globalmente na sua máquina/IDE:
+
+```bash
+npx skills add Kadu1992/chat-context -g
+```
+
+> **Dica**: Esta skill também pode ser instalada via catálogo central [Kadu Skills Hub](https://github.com/Kadu1992/kadu-skills-hub) (`npx skills add Kadu1992/kadu-skills-hub`).
+
+---
+
 ## 📌 Visão Geral
 
 A skill `chat-context` permite salvar, atualizar, retomar e consultar o contexto completo de trabalho em qualquer projeto. Com ela, a IA mantém o "fio da meada" entre sessões, garantindo que refatorações, decisões arquiteturais, pendências e histórico de comandos fiquem gravados no próprio repositório.

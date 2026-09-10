@@ -4,6 +4,24 @@
 
 ---
 
+## 📦 Instalação
+
+Instale diretamente no seu projeto com um único comando:
+
+```bash
+npx skills add Kadu1992/archify-presenter
+```
+
+Ou instale globalmente na sua máquina/IDE:
+
+```bash
+npx skills add Kadu1992/archify-presenter -g
+```
+
+> **Dica**: Esta skill também pode ser instalada via catálogo central [Kadu Skills Hub](https://github.com/Kadu1992/kadu-skills-hub) (`npx skills add Kadu1992/kadu-skills-hub`).
+
+---
+
 ## 🚀 Recursos Principais (Presenter Superpowers)
 
 ### 🔴 1. Ponteiro Laser Executivo (Pointer, Trail & Double-Click Off)
