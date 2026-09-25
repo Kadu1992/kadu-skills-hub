@@ -1,0 +1,17 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local logs & tokens
+*.log
+*.token
+*.json
+!skills.json
+!manifest.json
+!package.json
+
+# Auth files
+auth-tokens/
+session/

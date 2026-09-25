@@ -22,5 +22,11 @@
     "repo": "Kadu1992/chat-context",
     "branch": "main",
     "description": "Persistência global de contexto entre sessões de chat com current_context.md e snapshots históricos imutáveis ISO 8601."
+  },
+  {
+    "id": "subscription_proxy_zcode",
+    "repo": "Kadu1992/subscription_proxy_zcode",
+    "branch": "main",
+    "description": "Proxy local OAuth e hub de assinaturas (Gemini 4 contas pool, Claude, Codex, OpenCode GO) com contexto de 1M tokens e monitor CodeNotch no ZCode para Windows."
   }
 ]
