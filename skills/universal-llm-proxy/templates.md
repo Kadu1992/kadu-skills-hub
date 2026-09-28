@@ -4,7 +4,7 @@ Todos os arquivos estão pré-adaptados para o sistema operacional Windows (`C:\
 
 ---
 
-## 1. YAML Gemini (Porta 8317 — Pool 4 Contas)
+## 1. YAML Gemini (Porta 8317 — Pool de Múltiplas Contas)
 **Caminho:** `C:\Users\55119\.config\beta-llm\cliproxyapi.config.yaml`
 
 ```yaml
@@ -106,15 +106,15 @@ routing:
 
 ```bat
 @echo off
-title Proxies de Assinaturas ZCode
+title Universal LLM Proxy (Windows)
 echo ==============================================
-echo Iniciando Proxies de Assinaturas no Windows...
+echo Iniciando Universal LLM Proxy no Windows...
 echo ==============================================
 
 set BIN="C:\Users\55119\.local\bin\cli-proxy-api.exe"
 set CFG_DIR="C:\Users\55119\.config\beta-llm"
 
-echo [1/3] Iniciando Gemini (Antigravity 4 Contas) na porta 8317...
+echo [1/3] Iniciando Gemini (Antigravity Pool) na porta 8317...
 start /b "" %BIN% -config "%CFG_DIR%\cliproxyapi.config.yaml"
 
 echo [2/3] Iniciando Claude Pro/Max na porta 8318...
@@ -125,9 +125,9 @@ start /b "" %BIN% -config "%CFG_DIR%\cliproxyapi-codex.config.yaml"
 
 echo.
 echo Todos os proxies foram disparados em segundo plano!
-echo 8317 = Gemini (4 contas pool)
-echo 8318 = Claude
-echo 8319 = Codex
+echo Porta 8317 = Gemini (pool de contas: quantas quiser) + OpenCode GO...
+echo Porta 8318 = Claude Pro / Max...
+echo Porta 8319 = Codex / ChatGPT...
 ```
 
 *(Opcional: Coloque um atalho para este `.bat` na pasta `shell:startup` para iniciar automaticamente com o Windows).*
@@ -146,7 +146,27 @@ echo Concluído.
 
 ---
 
-## 6. Configuração no ZCode com Contexto de 1M Tokens
+## 6. Configuração Universal (Padrão OpenAI) e Receitas por IDE
+
+### 6.1. Regra Geral Universal (Para Qualquer Software)
+Qualquer software que possua campo para "Custom OpenAI API" utiliza:
+
+- **Gemini (Pool de Contas: quantas quiser):**
+  - Base URL: `http://localhost:8317/v1`
+  - API Key: `sk-cpa-gemini-local-key`
+  - Model Name: `gemini-2.5-pro`, `gemini-2.5-flash`...
+- **Claude (Pro / Max...):**
+  - Base URL: `http://localhost:8318/v1`
+  - API Key: `sk-cpa-claude-local-key`
+  - Model Name: `claude-3-7-sonnet`, `claude-3-5-sonnet`...
+- **Codex (ChatGPT Plus / Pro...):**
+  - Base URL: `http://localhost:8319/v1`
+  - API Key: `sk-cpa-codex-local-key`
+  - Model Name: `gpt-4o`, `o3-mini`, `gpt-4.5-preview`...
+
+---
+
+### 6.2. Configuração no ZCode (com Contexto de 1M Tokens)
 **Caminho:** `C:\Users\55119\.zcode\v2\provider_config.json`
 
 Insira dentro de `config.providerConfigRules.providerRules`:
@@ -192,8 +212,8 @@ Insira dentro de `config.providerConfigRules.providerRules`:
 ]
 ```
 
-### Regras de Aumento de Contexto para 1 Milhão de Tokens (1M)
-Em `config.modelConfigRules`, defina os limites máximos de tokens para que o ZCode permita conversas ultra-longas sem truncamento:
+#### Regras de Aumento de Contexto para 1 Milhão de Tokens (1M) no ZCode
+Em `config.modelConfigRules`:
 
 ```json
 {
@@ -214,4 +234,54 @@ Em `config.modelConfigRules`, defina os limites máximos de tokens para que o ZC
     "maxOutputTokens": 16384
   }
 }
+```
+
+---
+
+### 6.3. Configuração no Cursor e Windsurf
+1. Abra **Settings** (`Ctrl + ,`) ➔ **Models** (ou **OpenAI API Key**).
+2. Marque a opção de **Override OpenAI Base URL**.
+3. Insira:
+   - **Base URL:** `http://localhost:8317/v1` (ou `:8318` para Claude / `:8319` para Codex).
+   - **API Key:** `sk-cpa-gemini-local-key` (ou `sk-cpa-claude-local-key`).
+4. Adicione o modelo desejado (ex: `gemini-2.5-pro` ou `claude-3-7-sonnet`) e clique em verificar.
+
+---
+
+### 6.4. Configuração no VS Code (Continue.dev ou Cline)
+- **No Continue.dev (`~/.continue/config.json`):**
+  ```json
+  {
+    "models": [
+      {
+        "title": "Gemini Pool (Round-Robin)",
+        "provider": "openai",
+        "model": "gemini-2.5-pro",
+        "apiBase": "http://localhost:8317/v1",
+        "apiKey": "sk-cpa-gemini-local-key"
+      },
+      {
+        "title": "Claude Pro Local",
+        "provider": "openai",
+        "model": "claude-3-7-sonnet",
+        "apiBase": "http://localhost:8318/v1",
+        "apiKey": "sk-cpa-claude-local-key"
+      }
+    ]
+  }
+  ```
+- **No Cline / Roo Code:**
+  1. Clique na engrenagem de configurações da extensão.
+  2. Em **API Provider**, selecione **OpenAI Compatible**.
+  3. Preencha a Base URL e a chave local da porta desejada.
+
+---
+
+### 6.5. Configuração no Terminal (Aider / Shell CLI)
+Basta exportar as variáveis de ambiente antes de executar:
+
+```cmd
+set OPENAI_BASE_URL=http://localhost:8317/v1
+set OPENAI_API_KEY=sk-cpa-gemini-local-key
+aider --model openai/gemini-2.5-pro
 ```

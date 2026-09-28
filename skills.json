@@ -24,9 +24,9 @@
     "description": "Persistência global de contexto entre sessões de chat com current_context.md e snapshots históricos imutáveis ISO 8601."
   },
   {
-    "id": "subscription_proxy_zcode",
-    "repo": "Kadu1992/subscription_proxy_zcode",
+    "id": "universal-llm-proxy",
+    "repo": "Kadu1992/universal-llm-proxy",
     "branch": "main",
-    "description": "Proxy local OAuth e hub de assinaturas (Gemini 4 contas pool, Claude, Codex, OpenCode GO) com contexto de 1M tokens e monitor CodeNotch no ZCode para Windows."
+    "description": "Proxy local OAuth e hub universal de IA (Gemini, Claude, Codex, GPT, OpenCode, DeepSeek, Qwen...) com pool flexível de contas (quantas desejar: 2, 4, 10, 20+ contas em rodízio...), contexto de 1M tokens e monitor CodeNotch no Windows para qualquer IDE (Cursor, ZCode, Windsurf, VS Code, Aider...)."
   }
 ]

@@ -1,4 +1,4 @@
-# Codex / ChatGPT no ZCode (Porta 8319) — Windows
+# Codex / ChatGPT (Porta 8319) — Windows (ChatGPT Plus / Pro)
 
 Usa a assinatura OpenAI / ChatGPT (Plus, Team ou Pro) diretamente via OAuth com o `cli-proxy-api.exe`.
 
@@ -72,8 +72,14 @@ Deverá listar os modelos da assinatura (ex: `gpt-4o`, `o3-mini`, `o1`).
 
 ---
 
-## 5. Registrar no ZCode (Windows)
+## 5. Conectar na sua IDE / Cliente
 
+### Dados Universais (Padrão OpenAI):
+- **Base URL:** `http://127.0.0.1:8319/v1`
+- **API Key:** `sk-cpa-codex-local-key`
+- **Modelos:** `gpt-4o`, `o3-mini`, `gpt-4.5-preview`
+
+### Exemplo no ZCode (Windows):
 No arquivo `C:\Users\55119\.zcode\v2\provider_config.json`:
 
 ```json
@@ -90,3 +96,10 @@ No arquivo `C:\Users\55119\.zcode\v2\provider_config.json`:
   }
 }
 ```
+
+### Exemplo no Cursor / Windsurf:
+Em **Settings ➔ Models ➔ OpenAI Compatible**:
+- **Base URL:** `http://127.0.0.1:8319/v1`
+- **API Key:** `sk-cpa-codex-local-key`
+- **Model:** `gpt-4o`
+

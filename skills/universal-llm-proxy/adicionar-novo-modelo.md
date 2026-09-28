@@ -7,16 +7,14 @@ Este guia explica exatamente como você (ou o assistente de IA) pode:
 
 ---
 
-## 🎯 Onde os Modelos São Filtrados? (Na Skill ou no ZCode?)
+## 🎯 Onde os Modelos São Filtrados? (Na IDE / Cliente)
 
-A seleção dos modelos é feita no arquivo de configuração do ZCode:
-📁 `C:\Users\55119\.zcode\v2\provider_config.json`
+O `cli-proxy-api` descobre todos os modelos aos quais a sua assinatura dá direito. Porém, **é a sua IDE quem decide quais deles aparecem no seu menu dropdown**:
 
-O `cli-proxy-api` descobre todos os modelos que a sua conta tem direito. Porém, **é o ZCode quem decide quais deles aparecem no seu menu dropdown**!
-
-No arquivo `provider_config.json`, dentro de cada provedor, existem dois campos mágicos:
-- `"personalModelIds"`: Uma lista com **apenas os modelos que você quer exibir**. Se você colocar apenas 1 modelo aqui, o ZCode mostrará somente ele!
-- `"modelOrder"`: A ordem exata em que você quer que eles apareçam na lista.
+- **No ZCode:** No arquivo `C:\Users\55119\.zcode\v2\provider_config.json` através dos campos `"personalModelIds"` e `"modelOrder"`.
+- **No Cursor / Windsurf:** Na tela de **Settings ➔ Models**, onde você adiciona ou remove os nomes dos modelos manualmente.
+- **No VS Code (Continue.dev):** Na lista `"models"` do arquivo `config.json`.
+- **No Cline / Roo Code:** No campo **Model ID** do painel da extensão.
 
 ### Exemplo Prático: Quero apenas o Flash no Gemini!
 Se você quer que o Gemini mostre **apenas** o modelo Flash (ex: `gemini-2.5-flash`), basta deixar a lista assim:

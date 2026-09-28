@@ -1,4 +1,4 @@
-# OpenCode GO & Modelos Gratuitos no ZCode
+# OpenCode GO & Modelos Gratuitos (Universal)
 
 O **OpenCode** (com planos OpenCode GO e OpenCode.Zen) fornece acesso a modelos de alta performance (como DeepSeek-V4, Qwen 3.8, GLM-5.3 e Muse-Spark) tanto em modalidades gratuitas quanto por créditos.
 

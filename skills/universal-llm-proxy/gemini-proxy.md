@@ -1,18 +1,18 @@
-# Gemini no ZCode (Porta 8317) — Windows & Pool de 4 Contas
+# Gemini (Porta 8317) — Windows & Pool de Múltiplas Contas (Quantas Quiser)
 
-Usa assinaturas Gemini através do Antigravity (Google AI Pro/Ultra).
+Usa assinaturas Gemini através do Antigravity (Google AI Pro/Ultra...).
 O `cli-proxy-api.exe` autentica contas Google via OAuth e expõe uma API compatível com OpenAI no localhost do Windows.
 
 ---
 
-## 🌟 O Segredo do Carrossel (Pool de 4 Contas Google)
+## 🌟 O Segredo do Carrossel (Pool de Múltiplas Contas Google)
 
 No `cli-proxy-api`, quando você realiza o comando de login (`-antigravity-login`), o proxy armazena as credenciais OAuth em arquivos JSON dentro da pasta `auth-dir`.
-Para usar **4 contas Google em rodízio automático**:
-1. Você executa o login 4 vezes no navegador (uma com cada conta Google).
+Para usar **múltiplas contas Google em rodízio automático (2, 4, 10, 20+ contas)**:
+1. Você executa o login quantas vezes desejar no navegador (uma com cada conta Google diferente).
 2. O proxy salva cada token autenticado na pasta `C:\Users\55119\.cli-proxy-api\`.
-3. Com a diretiva `routing.strategy: "round-robin"` (ou `"least-used"`), o proxy distribui as requisições entre as contas.
-4. Quando uma conta bate o limite de requisições ou créditos, o bloco `quota-exceeded` faz o chaveamento automático para a próxima conta da fila, sem que o ZCode trave ou dê erro!
+3. Com a diretiva `routing.strategy: "round-robin"` (ou `"least-used"`), o proxy distribui as requisições igualmente entre todas as contas.
+4. Quando uma conta bate o limite de requisições ou créditos, o bloco `quota-exceeded` faz o chaveamento automático para a próxima conta da fila, sem que a sua IDE trave ou dê erro!
 
 ---
 
@@ -57,17 +57,17 @@ routing:
 
 ---
 
-## 3. Realizar o Login das 4 Contas (OAuth Google)
+## 3. Realizar o Login das Contas Desejadas (OAuth Google)
 
-Execute o comando de login no PowerShell para cada uma das suas 4 contas:
+Execute o comando de login no PowerShell para cada uma das suas contas (faça com 2, 4, 10, 20 ou quantas contas desejar):
 
 ```powershell
-# Execução para a Conta 1
+# Execução para a Conta 1 (e repita para as demais contas)
 C:\Users\55119\.local\bin\cli-proxy-api.exe -config "C:\Users\55119\.config\beta-llm\cliproxyapi.config.yaml" -antigravity-login
 ```
 
-*O navegador abrirá automaticamente. Faça login na 1ª conta Google e autorize.*
-*Repita o comando para a 2ª, 3ª e 4ª conta. Os 4 arquivos de sessão `antigravity-*.json` ficarão armazenados em `C:\Users\55119\.cli-proxy-api\`.*
+*O navegador abrirá automaticamente. Faça login na conta Google e autorize.*
+*Repita o comando para cada conta que você possuir (2, 4, 10, 20 ou mais contas em pool). Os arquivos de sessão `antigravity-*.json` ficarão armazenados em `C:\Users\55119\.cli-proxy-api\`.*
 
 ---
 
@@ -101,8 +101,14 @@ curl.exe -s -H "Authorization: Bearer sk-cpa-gemini-local-key" -H "Content-Type:
 
 ---
 
-## 6. Registrar no ZCode (Windows)
+## 6. Conectar na sua IDE / Cliente
 
+### Dados Universais (Padrão OpenAI):
+- **Base URL:** `http://127.0.0.1:8317/v1`
+- **API Key:** `sk-cpa-gemini-local-key`
+- **Modelos:** `gemini-2.5-pro`, `gemini-2.5-flash`
+
+### Exemplo no ZCode (Windows):
 No arquivo `C:\Users\55119\.zcode\v2\provider_config.json`, adicione o provider do Gemini:
 
 ```json
@@ -119,3 +125,10 @@ No arquivo `C:\Users\55119\.zcode\v2\provider_config.json`, adicione o provider 
   }
 }
 ```
+
+### Exemplo no Cursor / Windsurf:
+Em **Settings ➔ Models ➔ OpenAI Compatible**:
+- **Base URL:** `http://127.0.0.1:8317/v1`
+- **API Key:** `sk-cpa-gemini-local-key`
+- **Model:** `gemini-2.5-pro`
+

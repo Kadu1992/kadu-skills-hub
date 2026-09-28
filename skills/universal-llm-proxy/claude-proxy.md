@@ -1,4 +1,4 @@
-# Claude no ZCode (Porta 8318) — Windows
+# Claude (Porta 8318) — Windows (Claude Pro/Max)
 
 Usa a assinatura Claude Pro/Max via OAuth diretamente na Anthropic, sem necessidade de chaves de API pagas.
 
@@ -75,8 +75,14 @@ Deverá listar os modelos da sua assinatura (ex: `claude-3-7-sonnet`, `claude-3-
 
 ---
 
-## 5. Registrar no ZCode (Windows)
+## 5. Conectar na sua IDE / Cliente
 
+### Dados Universais (Padrão OpenAI):
+- **Base URL:** `http://127.0.0.1:8318/v1`
+- **API Key:** `sk-cpa-claude-local-key`
+- **Modelos:** `claude-3-7-sonnet`, `claude-3-5-sonnet`
+
+### Exemplo no ZCode (Windows):
 No arquivo `C:\Users\55119\.zcode\v2\provider_config.json`:
 
 ```json
@@ -93,3 +99,10 @@ No arquivo `C:\Users\55119\.zcode\v2\provider_config.json`:
   }
 }
 ```
+
+### Exemplo no Cursor / Windsurf:
+Em **Settings ➔ Models ➔ OpenAI Compatible**:
+- **Base URL:** `http://127.0.0.1:8318/v1`
+- **API Key:** `sk-cpa-claude-local-key`
+- **Model:** `claude-3-7-sonnet`
+
