@@ -28,5 +28,11 @@
     "repo": "Kadu1992/universal-llm-proxy",
     "branch": "main",
     "description": "Proxy local OAuth e hub universal de IA (Gemini, Claude, Codex, GPT, OpenCode, DeepSeek, Qwen...) com pool flexível de contas (quantas desejar: 2, 4, 10, 20+ contas em rodízio...), contexto de 1M tokens e monitor CodeNotch no Windows para qualquer IDE (Cursor, ZCode, Windsurf, VS Code, Aider...)."
+  },
+  {
+    "id": "k-sdd",
+    "repo": "Kadu1992/k-sdd",
+    "branch": "main",
+    "description": "Framework autônomo de Spec-Driven Development: PRD/FRD (4 pilares), UI Stitch nativo, feedback loop de UAT com rastreabilidade estrita e validação determinística."
   }
 ]
