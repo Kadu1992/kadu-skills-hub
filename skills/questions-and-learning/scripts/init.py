@@ -4,8 +4,8 @@
 Script de Inicialização Automática da Skill questions-and-learning.
 Cria deterministicamente a estrutura necessária na raiz do projeto:
 - pasta chat_questions/
-- arquivo chat_questions/README.md
-- arquivo chat_questions/questions.md (com template inicial amigável e orientações de uso)
+- arquivo chat_questions/README.md (guia de uso da pasta)
+- arquivo chat_questions/questions.md (template estruturado para anotações)
 """
 
 import sys
@@ -46,8 +46,8 @@ def obter_raiz_projeto() -> Path:
 # ==============================================================================
 # Template padrão do arquivo README.md da pasta chat_questions
 # O que esta parte faz: Define a documentação didática embutida da pasta.
-# Para que serve / Como funciona no fluxo: Orienta qualquer desenvolvedor ou agente
-# sobre a finalidade dos arquivos gerados, comandos de terminal e uso no chat.
+# Para que serve / Como funciona no fluxo: Foca no uso diário da pasta (escrever dúvidas,
+# rodar via comando ou arrastar para o chat, e consultar duvidas-vN / resposta-vN).
 # ==============================================================================
 README_CONTEUDO = """# ❓ Pasta de Dúvidas e Aprendizados (`chat_questions`)
 
@@ -77,24 +77,6 @@ chat_questions/
 3. **Consulte o resultado**:
    - `duvidas-vN.md`: Suas anotações 100% preservadas e organizadas por temas com emojis.
    - `resposta-vN.md`: Respostas técnicas ponto a ponto com tabela de ações imediatas por prioridade.
-
----
-
-## 🛠️ Como Inicializar ou Gerar a Estrutura (Setup)
-
-Caso a estrutura ainda não exista ou você esteja iniciando em um novo projeto, use uma destas opções:
-
-### Opção 1: Pelo Chat da IA (Sem Terminal — Recomendada)
-Basta digitar `/questions-and-learning` ou `/questions init` no chat. A IA criará instantaneamente a pasta `chat_questions/`, o `README.md` e o `questions.md` pré-formatado na árvore da IDE.
-
-### Opção 2: Pelo Terminal (Script Python Determinístico)
-Execute o comando abaixo na raiz do seu projeto:
-
-```bash
-python .agents/skills/questions-and-learning/scripts/init.py
-```
-
-*(Comando idempotente: gera os arquivos com template estruturado e nunca sobrescreve anotações já existentes).*
 """
 
 
@@ -143,7 +125,7 @@ def inicializar_estrutura(raiz: Path = None) -> bool:
     arquivo_readme = pasta_chat_questions / "README.md"
     arquivo_questions = pasta_chat_questions / "questions.md"
 
-    # Cria ou atualiza o README.md explicativo com o comando de terminal embutido
+    # Cria ou atualiza o README.md explicativo
     arquivo_readme.write_text(README_CONTEUDO, encoding="utf-8")
 
     # Cria o questions.md apenas se ele ainda não existir ou se estiver vazio
