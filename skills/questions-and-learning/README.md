@@ -22,97 +22,105 @@ npx skills add Kadu1992/questions-and-learning -g
 
 ---
 
-## 🚀 Inicialização da Estrutura (Setup)
+## 🚀 Como Funciona a Inicialização (Setup na Árvore da IDE)
 
-Você pode inicializar a estrutura na sua árvore de duas formas simples:
+> **💡 Dúvida Frequente**: *Preciso rodar o terminal toda vez que for usar a skill?*  
+> **NÃO!** Você **nunca** é obrigado a rodar nada no terminal se não quiser.  
+> Uma vez criada a pasta no projeto, ela permanece na sua árvore para sempre.
 
-### Opção 1: Pelo chat com a IA
-Basta digitar `/questions init` ou `/questions-and-learning` no chat. A IA criará instantaneamente a pasta `chat_questions/`, o `README.md` e o `questions.md` com template amigável.
+Você tem **duas formas** de gerar os arquivos na sua árvore:
 
-### Opção 2: Pelo terminal (CLI determinístico)
-Logo após instalar via `npx skills add`, se quiser criar a pasta imediatamente na árvore sem abrir o chat, rode:
+### Opção 1: 100% Automática pelo Chat da IA (Recomendada — Sem Terminal)
+Basta digitar `/questions-and-learning` (ou `/questions`, `/questions init`) no chat.  
+A IA verifica se a pasta `chat_questions/` existe:
+- Se ainda **não existir**, a própria IA cria instantaneamente a pasta, o `README.md` e o `questions.md` com template estruturado na árvore da sua IDE.
+- Ela te devolve o link clicável direto para você começar a escrever.
+
+### Opção 2: Pelo Terminal (Opcional — Atalho Imediato)
+Se você acabou de rodar `npx skills add` no terminal e já quer ver a pasta brotar na árvore da IDE antes mesmo de abrir o chat com a IA, pode rodar:
 
 ```bash
 python .agents/skills/questions-and-learning/scripts/init.py
 ```
 
+*Esse comando é 100% opcional e idempotente: se a pasta já existir com anotações, ele preserva tudo sem sobrescrever nada.*
+
 ---
 
-## ⚡ Ativação
+## 🔄 Fluxo do Dia a Dia (Depois que a pasta já existe)
 
-A skill pode ser acionada em múltiplos cenários:
+Depois que a pasta `chat_questions/` já está na sua árvore, a sua rotina é ultra simples:
+
+```text
+1. Abra o arquivo chat_questions/questions.md na IDE e anote suas dúvidas livremente.
+2. No chat da IA, digite /questions-and-learning (ou arraste o arquivo questions.md).
+3. A IA lê suas anotações, organiza em duvidas-vN.md e responde tudo em resposta-vN.md!
+```
+
+---
+
+## ⚡ Formas de Ativação no Chat
+
+A skill é acionada de forma transparente em qualquer um destes cenários:
 
 | Cenário / Gatilho | Exemplo |
 |---|---|
-| Slash command na IDE | `/questions-and-learning`, `/chat-questions` ou `/questions` |
-| Setup inicial da árvore | `/questions init` ou `/questions setup` |
-| Skill invocada diretamente no chat, sem anexo | *(digitar o nome da skill e dar enter)* |
-| Arquivo `questions.md` enviado **sem mensagem** (arrastar e soltar) | *(sem texto)* |
-| Arquivo `questions.md` com menção de conversão | `"converte esse questions.md"` ou `"organiza as perguntas"` |
-
-Nenhuma instrução adicional é necessária. O fluxo completo executa imediatamente.
-
-### 🆕 Primeira execução (setup automático)
-
-Se `chat_questions/questions.md` **ainda não existe**, a skill:
-1. Cria a pasta `chat_questions/` na raiz do projeto
-2. Cria o arquivo `chat_questions/README.md` com o guia explicativo
-3. Cria o arquivo `chat_questions/questions.md` com template estruturado (evitando arquivos vazios de 0 bytes)
-4. Retorna o link clicável para o usuário preencher suas dúvidas
-5. **Não** executa a conversão nessa chamada de setup
-
-Se `chat_questions/questions.md` **já existe com dúvidas preenchidas**, a skill ignora a criação e segue direto para o fluxo de conversão.
+| Comando slash principal | `/questions-and-learning` ou `/chat-questions` |
+| Atalho curto | `/questions` |
+| Setup inicial explícito | `/questions init` ou `/questions setup` |
+| Chamada direta no chat | Digitar `questions-and-learning` e enviar |
+| Arrastar e soltar o arquivo | Soltar `questions.md` no chat (sem digitar nada) |
+| Menção textual | `"organiza as dúvidas desse questions.md"` ou `"responde as perguntas"` |
 
 ---
 
-## 📂 Saída
+## 📂 Saída Gerada
 
-Dois arquivos versionados são criados na pasta `chat_questions/`:
+Dois arquivos versionados são criados incrementalmente na pasta `chat_questions/`:
 
-```
+```text
 chat_questions/
-├── questions.md     ← suas anotações brutas
+├── questions.md     ← suas anotações brutas (sempre preservadas)
 ├── README.md        ← guia explicativo da pasta
 ├── duvidas-v1.md    ← dúvidas organizadas em seções com emojis
 └── resposta-v1.md   ← respostas técnicas ponto a ponto + tabela de ações
 ```
 
-O `N` da versão é detectado automaticamente — se já existem `v1` e `v2`, o próximo será `v3`.
+O número de versão `vN` é automático. Se já houver `v1` e `v2`, o próximo lote gerará `v3` automaticamente.
 
 ---
 
-## 🔄 Fluxo de execução
+## 🔄 Fluxo Visual de Decisão da Skill
 
-```
-Skill acionada ou python scripts/init.py
+```text
+Skill acionada no chat (ou python scripts/init.py)
     │
     ▼
 [Passo 0] chat_questions/ existe com questions.md e README.md?
-          • NÃO → cria pasta + README.md + questions.md com template → para aqui
-          • SIM → segue para o Passo 1
+          • NÃO → Cria pasta + README.md + questions.md com template na árvore → Para aqui
+          • SIM  → Se questions.md estiver preenchido com dúvidas, segue para o Passo 1
     │
     ▼
-[Passo 1] Detecta versão N (analisa chat_questions/)
+[Passo 1] Detecta versão N incremental (analisa chat_questions/)
     │
     ▼
 [Passo 2] Converte questions.md → duvidas-vN.md
-          • Agrupa por temas com seções numeradas
-          • Preserva todo o conteúdo original
-          • Usa emojis, negrito, backticks, blockquotes
+          • Agrupa por temas com seções numeradas e emojis
+          • Preserva 100% do conteúdo original (não apaga nada)
     │
     ▼
 [Passo 3] Lê duvidas-vN.md → gera resposta-vN.md
           • Responde cada dúvida na mesma ordem
-          • Marca status: ✅ Confirmado / 🔧 Será implementado / 💬 Discussão
-          • Inclui tabela de Ações com prioridade
+          • Status: ✅ Confirmado / 🔧 Será implementado / 💬 Discussão
+          • Inclui tabela de Resumo de Ações por prioridade
     │
     ▼
-[Passo 4] Confirma no chat com links clicáveis dos dois arquivos
+[Passo 4] Confirma no chat com links clicáveis dos arquivos gerados
 ```
 
 ---
 
-## 📄 Estrutura do `duvidas-vN.md`
+## 📄 Formato do `duvidas-vN.md`
 
 ```markdown
 # 📋 Título — Contexto Detectado
@@ -131,22 +139,9 @@ Skill acionada ou python scripts/init.py
 *Documento gerado em: [contexto] — vN*
 ```
 
-**Temas detectados automaticamente:**
-
-| Conteúdo | Seção gerada |
-|---|---|
-| UI, cards, layout | `🃏 Interface / Cards / Layout` |
-| Cálculos, valores | `📊 Cálculos e Valores` |
-| Erros visuais | `🐛 Bugs` |
-| Fluxo, lógica | `❓ Dúvidas de Lógica` |
-| Regras de negócio | `📋 Regras de Negócio` |
-| Arquivos, versões | `🗂️ Arquivos e Versionamento` |
-| Automações | `🤖 Automações` |
-| Próximos passos | `🔜 Próximos Steps` |
-
 ---
 
-## 💬 Estrutura do `resposta-vN.md`
+## 💬 Formato do `resposta-vN.md`
 
 ```markdown
 # ✅ Respostas — vN
@@ -169,12 +164,12 @@ Skill acionada ou python scripts/init.py
 
 ---
 
-## 📌 Regras importantes
+## 📌 Diretrizes Mandatórias da Skill
 
-- **Nunca remove conteúdo** — todo o `questions.md` original é preservado no `duvidas-vN.md`.
-- O `questions.md` é apenas fonte para conversão; o `.md` gerado é a fonte de verdade para as respostas.
-- A tabela de Ações no final do `resposta-vN.md` é obrigatória.
-- A resposta no chat é minimalista com links clicáveis universais.
+- **Preservação Total**: Nunca deleta nem resume conteúdo em `duvidas-vN.md`; todo o conteúdo bruto é preservado.
+- **Fonte da Verdade**: O `questions.md` é a entrada; o `duvidas-vN.md` gerado é a base técnica das respostas.
+- **Ações Imediatas**: Sempre inclui a tabela com prioridade (Alta / Média / Baixa) ao final de cada rodada.
+- **Links Universais**: As confirmações no chat sempre trazem links clicáveis no formato universal `file:///`.
 
 ---
 
