@@ -5,7 +5,7 @@ Script de Inicialização Automática da Skill questions-and-learning.
 Cria deterministicamente a estrutura necessária na raiz do projeto:
 - pasta chat_questions/
 - arquivo chat_questions/README.md
-- arquivo chat_questions/questions.md (com template inicial amigável)
+- arquivo chat_questions/questions.md (com template inicial amigável e orientações de uso)
 """
 
 import sys
@@ -71,7 +71,9 @@ chat_questions/
 ## 🚀 Como Usar
 
 1. **Escreva suas dúvidas**: Abra o arquivo `questions.md` e anote tudo o que precisa ser esclarecido ou decidido (dúvidas de tela, regras de negócio, bugs, lógica, etc.).
-2. **Execute a skill**: No chat da IDE/assistente, digite `/questions-and-learning` (ou envie o arquivo `questions.md`).
+2. **Execute a skill**: No chat da IDE/assistente, você tem duas opções equivalentes:
+   - **Opção A (Comando)**: Digite `/questions-and-learning` (ou `/questions`) e envie.
+   - **Opção B (Arrastar e Soltar)**: Simplesmente arraste o arquivo `questions.md` para o chat da IA e dê Enter (sem precisar digitar nada!).
 3. **Consulte o resultado**:
    - `duvidas-vN.md`: Suas anotações 100% preservadas e organizadas por temas com emojis.
    - `resposta-vN.md`: Respostas técnicas ponto a ponto com tabela de ações imediatas por prioridade.
@@ -82,12 +84,17 @@ chat_questions/
 # Template padrão do arquivo questions.md
 # O que esta parte faz: Define o modelo estruturado inicial de anotações.
 # Para que serve / Como funciona no fluxo: Evita arquivos em branco e orienta o usuário
-# com categorias sugeridas onde ele pode listar dúvidas sem atrito.
+# com categorias sugeridas onde ele pode listar dúvidas e como acionar a IA (comando ou arrastar).
 # ==============================================================================
 QUESTIONS_TEMPLATE = """# ❓ Dúvidas e Anotações Brutas
 
 > Escreva abaixo suas dúvidas, ideias, comportamentos inesperados ou decisões pendentes.
-> Quando terminar de escrever, digite `/questions-and-learning` no chat para gerar o documento estruturado e as respostas técnicas.
+> 
+> Quando terminar de escrever, você tem duas opções equivalentes para acionar a IA:
+> 1. **Via comando**: Digite `/questions-and-learning` (ou `/questions`) no chat e dê Enter.
+> 2. **Via arrastar e soltar**: Arraste este arquivo `questions.md` para o chat da IA e dê Enter (sem precisar digitar texto nenhum!).
+> 
+> Ambas as formas acionam a skill e geram o documento estruturado (`duvidas-vN.md`) e as respostas técnicas (`resposta-vN.md`).
 
 ---
 
@@ -136,7 +143,7 @@ def inicializar_estrutura(raiz: Path = None) -> bool:
     else:
         print(f"📝 Anotações: {arquivo_questions} (conteúdo existente preservado)")
     print("==================================================================")
-    print("💡 Próximo passo: Escreva suas dúvidas no questions.md e chame /questions-and-learning")
+    print("💡 Próximo passo: Escreva suas dúvidas no questions.md e chame /questions-and-learning ou arraste o arquivo para o chat!")
     return True
 
 
