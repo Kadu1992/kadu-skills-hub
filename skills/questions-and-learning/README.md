@@ -22,6 +22,22 @@ npx skills add Kadu1992/questions-and-learning -g
 
 ---
 
+## 🚀 Inicialização da Estrutura (Setup)
+
+Você pode inicializar a estrutura na sua árvore de duas formas simples:
+
+### Opção 1: Pelo chat com a IA
+Basta digitar `/questions init` ou `/questions-and-learning` no chat. A IA criará instantaneamente a pasta `chat_questions/`, o `README.md` e o `questions.md` com template amigável.
+
+### Opção 2: Pelo terminal (CLI determinístico)
+Logo após instalar via `npx skills add`, se quiser criar a pasta imediatamente na árvore sem abrir o chat, rode:
+
+```bash
+python .agents/skills/questions-and-learning/scripts/init.py
+```
+
+---
+
 ## ⚡ Ativação
 
 A skill pode ser acionada em múltiplos cenários:
@@ -29,7 +45,8 @@ A skill pode ser acionada em múltiplos cenários:
 | Cenário / Gatilho | Exemplo |
 |---|---|
 | Slash command na IDE | `/questions-and-learning`, `/chat-questions` ou `/questions` |
-| Skill invocada diretamente no chat, sem anexo (primeira execução) | *(digitar o nome da skill e dar enter)* |
+| Setup inicial da árvore | `/questions init` ou `/questions setup` |
+| Skill invocada diretamente no chat, sem anexo | *(digitar o nome da skill e dar enter)* |
 | Arquivo `questions.md` enviado **sem mensagem** (arrastar e soltar) | *(sem texto)* |
 | Arquivo `questions.md` com menção de conversão | `"converte esse questions.md"` ou `"organiza as perguntas"` |
 
@@ -38,12 +55,13 @@ Nenhuma instrução adicional é necessária. O fluxo completo executa imediatam
 ### 🆕 Primeira execução (setup automático)
 
 Se `chat_questions/questions.md` **ainda não existe**, a skill:
-1. Cria a pasta `chat_questions/`
-2. Cria dentro dela um `questions.md` **vazio**
-3. Pede para o usuário preencher o arquivo e rodar a skill novamente
-4. **Não** executa a conversão nessa primeira chamada
+1. Cria a pasta `chat_questions/` na raiz do projeto
+2. Cria o arquivo `chat_questions/README.md` com o guia explicativo
+3. Cria o arquivo `chat_questions/questions.md` com template estruturado (evitando arquivos vazios de 0 bytes)
+4. Retorna o link clicável para o usuário preencher suas dúvidas
+5. **Não** executa a conversão nessa chamada de setup
 
-Se `chat_questions/questions.md` **já existe**, a skill ignora a criação e segue direto para o fluxo normal de conversão descrito abaixo.
+Se `chat_questions/questions.md` **já existe com dúvidas preenchidas**, a skill ignora a criação e segue direto para o fluxo de conversão.
 
 ---
 
@@ -53,8 +71,10 @@ Dois arquivos versionados são criados na pasta `chat_questions/`:
 
 ```
 chat_questions/
-├── duvidas-v1.md   ← dúvidas organizadas em seções com emojis
-└── resposta-v1.md  ← respostas técnicas ponto a ponto + tabela de ações
+├── questions.md     ← suas anotações brutas
+├── README.md        ← guia explicativo da pasta
+├── duvidas-v1.md    ← dúvidas organizadas em seções com emojis
+└── resposta-v1.md   ← respostas técnicas ponto a ponto + tabela de ações
 ```
 
 O `N` da versão é detectado automaticamente — se já existem `v1` e `v2`, o próximo será `v3`.
@@ -64,11 +84,11 @@ O `N` da versão é detectado automaticamente — se já existem `v1` e `v2`, o 
 ## 🔄 Fluxo de execução
 
 ```
-Skill acionada
+Skill acionada ou python scripts/init.py
     │
     ▼
-[Passo 0] chat_questions/questions.md existe?
-          • NÃO → cria pasta + questions.md vazio → para aqui
+[Passo 0] chat_questions/ existe com questions.md e README.md?
+          • NÃO → cria pasta + README.md + questions.md com template → para aqui
           • SIM → segue para o Passo 1
     │
     ▼
@@ -87,7 +107,7 @@ Skill acionada
           • Inclui tabela de Ações com prioridade
     │
     ▼
-[Passo 4] Confirma no chat com paths dos dois arquivos
+[Passo 4] Confirma no chat com links clicáveis dos dois arquivos
 ```
 
 ---
@@ -151,13 +171,15 @@ Skill acionada
 
 ## 📌 Regras importantes
 
-- **Nunca remove conteúdo** — todo o `questions.md` original é preservado no `duvidas-vN.md`
-- O `questions.md` é apenas fonte para conversão; o `.md` gerado é a fonte de verdade para as respostas
-- A tabela de Ações no final do `resposta-vN.md` é obrigatória
-- A resposta no chat é minimalista — apenas os paths dos arquivos gerados
+- **Nunca remove conteúdo** — todo o `questions.md` original é preservado no `duvidas-vN.md`.
+- O `questions.md` é apenas fonte para conversão; o `.md` gerado é a fonte de verdade para as respostas.
+- A tabela de Ações no final do `resposta-vN.md` é obrigatória.
+- A resposta no chat é minimalista com links clicáveis universais.
 
 ---
 
 ## 🗂️ Localização
-- **Local (Workspace Kadu_OS)**: `c:\Users\55119\iCloudDrive\iCloud~md~obsidian\Kadu_OS\.agents\skills\questions-and-learning\SKILL.md`
-- **Global (IDE / Todos os Projetos)**: `C:\Users\55119\.gemini\config\skills\questions-and-learning\SKILL.md`
+- **Repositório Oficial**: [Kadu1992/questions-and-learning](https://github.com/Kadu1992/questions-and-learning)
+- **Kadu Skills Hub**: [Kadu1992/kadu-skills-hub](https://github.com/Kadu1992/kadu-skills-hub)
+- **Local (Workspace)**: `.agents/skills/questions-and-learning/`
+- **Global (IDE / Máquina)**: `C:\Users\55119\.gemini\config\skills\questions-and-learning\`
