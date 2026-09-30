@@ -232,7 +232,7 @@ def check(spec_path):
             warnings.append("Requirement Traceability has only template rows (no real IDs yet)")
 
     # 5. FRD (Feature Requirements Document) integration check.
-    feat_dir = os.path.dirname(path)
+    feat_dir = os.path.dirname(spec_path)
     frd_path = os.path.join(feat_dir, "frd.md")
     if os.path.exists(frd_path):
         frd_text = open(frd_path, encoding="utf-8", errors="replace").read().lower()
