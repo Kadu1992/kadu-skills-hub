@@ -82,9 +82,9 @@ def sincronizar_skill(skill: dict, pasta_destino_base: Path):
 
         pasta_final_skill.mkdir(parents=True, exist_ok=True)
 
-        # Copia todos os arquivos ignorando a pasta .git interna
+        # Copia todos os arquivos ignorando a pasta .git interna e .github de CI
         for item in caminho_temp.iterdir():
-            if item.name == ".git":
+            if item.name in [".git", ".github"]:
                 continue
             destino = pasta_final_skill / item.name
             if item.is_dir():
