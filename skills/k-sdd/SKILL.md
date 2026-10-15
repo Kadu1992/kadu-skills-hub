@@ -53,7 +53,20 @@ A metodologia possui uma trilha de ferro sequencial. **É expressamente proibido
 - Cada task individual tem seu comando de Gate (`npm run build` / testes) testado antes de avançar para a próxima.
 - Ao concluir **todas as tasks de uma Fase** (ou rodada de UAT), a IA gera **um commit semântico coeso e robusto da Fase inteira**, eliminando dezenas de micro-commits fragmentados e evitando acúmulo desordenado no painel de *Changes*.
 
-### 5. Carregamento de Arquivos e Scripts da Skill
+### 5. Reconciliação Total de Documentos Vivos (Living Specs)
+A documentação nunca mente sobre o código. Ao aprovar e resolver itens de homologação (UAT) ou mudanças de escopo:
+- É **mandatório retroalimentar toda a suíte de documentos afetada**:
+  - `feedback.md` (checklists com hash de commit);
+  - `spec.md` (requisitos técnicos EARS e traceability);
+  - `frd.md` (atualização das User Stories e Critérios de Aceite dos 4 pilares);
+  - `tasks.md` (registro de fases/tasks de UAT executadas);
+  - `design.md` (se houver impacto visual, layout, tokens ou componentes);
+  - `PRD.md` (se houver expansão ou ajuste de escopo do módulo/produto);
+  - `STATE.md` (decisão arquitetural AD-NNN e snapshot de handoff);
+  - `validation.md` (cenários de homologação com evidências).
+- **Proibido Documento Fantasma:** Nenhum documento pode ficar defasado em relação ao código real entregue.
+
+### 6. Carregamento de Arquivos e Scripts da Skill
 - Arquivos de referência moram sob `references/` na pasta da própria skill.
 - Scripts executáveis moram sob `scripts/` na pasta da própria skill. Execute via:
   `python3 <skill-dir>/scripts/<nome>.py ...` passando `--root` se necessário.

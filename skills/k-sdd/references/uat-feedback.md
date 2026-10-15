@@ -19,19 +19,21 @@ O **UAT Feedback Loop do `k-sdd`** fecha essa lacuna.
 
 ---
 
-## 2. O Ciclo de 5 Etapas do UAT
+## 2. O Ciclo de 6 Etapas do UAT & Reconciliação de Documentos Vivos
 
 ```mermaid
 graph TD
-    A[1. Entrada Fluida do Usuário: Áudio ou Texto] --> B[2. IA gera feedback.md com Checklist FB-01]
-    B --> C[3. IA adiciona Requisito na spec.md: pending]
+    A[1. Entrada Fluida: Áudio, Print com Setas, Texto] --> B[2. IA gera feedback.md com Checklist FB-01]
+    B --> C[3. IA mapeia na spec.md pending e atualiza frd.md]
     C --> D[4. IA cria Nova Fase em tasks.md com Gates]
-    D --> E[5. Execução -> Commit Coeso da Fase -> spec.md complete -> feedback.md marcado]
+    D --> E[5. Execução -> Gates -> Commit Coeso da Fase]
+    E --> F[6. Reconciliação Total: feedback, spec, frd, design, PRD, STATE]
 ```
 
 ### Etapa 1: Entrada Fluida do Usuário
 O usuário não precisa formatar nada. Ele pode:
 * Gravar um áudio no microfone do chat;
+* Enviar um print com setas ou anotações visuais apontando o erro/ajuste;
 * Digitar tópicos soltos no chat;
 * Escrever livremente suas percepções de teste.
 
@@ -42,7 +44,7 @@ A IA cria (ou atualiza) o arquivo `.specs/features/[feature]/feedback.md` com ca
 # UAT Feedback: [Nome da Feature]
 
 ## Rodada 1 - [Data]
-- **Entrada do Usuário:** [Texto ou transcrição de áudio]
+- **Entrada do Usuário:** [Texto, transcrição de áudio ou resumo de print]
 
 ### Checklist de Ajustes Solicitados
 - [ ] **FB-01**: Alinhar botões de prazo lado a lado no mobile sem espremer -> *Task: T8*
@@ -50,12 +52,13 @@ A IA cria (ou atualiza) o arquivo `.specs/features/[feature]/feedback.md` com ca
 - [ ] **FB-03**: Documentar regra de transição de status no CRM -> *Task: T10*
 ```
 
-### Etapa 3: Rastreabilidade na `spec.md`
-A IA abre a `spec.md` da feature e adiciona os novos critérios de aceite derivados do feedback na tabela de **Requirement Traceability** com status inicial **`pending`**:
+### Etapa 3: Rastreabilidade na `spec.md` e Alinhamento no `frd.md`
+1. A IA abre a `spec.md` da feature e adiciona os novos critérios de aceite derivados do feedback na tabela de **Requirement Traceability** com status inicial **`pending`**:
 ```markdown
 | Requirement ID | User Story | Acceptance Criteria | Status |
 | KANBAN-12 | US-02 | AC-KANBAN-12 | pending |
 ```
+2. Se o feedback alterar uma regra de negócio, comportamento ou fluxo de usuário, a IA atualiza imediatamente o **`frd.md`** correspondente (seção de User Stories ou Critérios de Aceite), garantindo que os 4 pilares reflitam a nova intenção.
 
 ### Etapa 4: Nova Fase em `tasks.md`
 A IA adiciona uma nova fase ao final do `tasks.md` com numeração contínua:
@@ -79,13 +82,21 @@ A IA adiciona uma nova fase ao final do `tasks.md` com numeração contínua:
    ```bash
    git commit -m "fix(kanban): alinha layout mobile, ajusta status inicial e documenta ciclo"
    ```
-3. A IA atualiza a `spec.md` para **`complete`**;
-4. A IA marca **`[x]`** no item correspondente do `feedback.md`:
+
+### Etapa 6: Reconciliação Total de Documentos Vivos (Living Specs)
+**A documentação nunca mente sobre o código.** Ao concluir a rodada e validar as alterações com o usuário, a IA atualiza obrigatoriamente toda a suíte de documentos vivos da feature e do produto:
+1. **`feedback.md`**: Marca **`[x]`** nos itens resolvidos citando o hash do commit:
    ```markdown
    - [x] **FB-01**: Alinhar botões de prazo... -> *Resolvido em T8 (commit 8a9b0c)*
-   - [x] **FB-02**: Alterar status inicial... -> *Resolvido em T9 (commit 8a9b0c)*
    ```
-5. O script `validate_state.py` confirma que **nenhum item de feedback ficou pendente**.
+2. **`spec.md`**: Atualiza a tabela de rastreabilidade para **`complete`** e adiciona/ajusta os requisitos técnicos EARS (`SHALL`).
+3. **`frd.md`**: Garante que os 4 pilares (User Stories e Critérios de Aceite) reflitam a funcionalidade real após a correção.
+4. **`tasks.md`**: Marca os checkboxes das tasks de UAT executadas com seus gates comprovados.
+5. **`design.md`** *(se aplicável)*: Se houve alteração de layout, cores, espaçamento, tipografia ou comportamento de componentes, atualiza os tokens ou especificações visuais.
+6. **`PRD.md`** *(se aplicável)*: Se a mudança alterou o escopo geral do módulo, fluxos macro ou capacidades do sistema, atualiza o mapa de módulos e descrições no `.specs/PRD.md`.
+7. **`STATE.md`**: Registra uma decisão arquitetural formal (AD-NNN) com o contexto do ajuste, arquivos tocados e status do handoff.
+8. **`validation.md`**: Inclui os cenários de UAT na tabela de aceitação humana com as devidas evidências.
+9. O script `validate_state.py` confirma que **nenhum item de feedback ficou pendente**.
 
 ---
 

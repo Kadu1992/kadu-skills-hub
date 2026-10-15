@@ -93,3 +93,4 @@ Checklist das condições que precisam ser verdade para o aceite do produto:
 1. **Nada de AI Slop:** Nunca gere um PRD ou FRD com 10 páginas de enrolação que ninguém vai ler. Seja direto, visual e objetivo.
 2. **Aprovação Obrigatória:** O agente não pode criar tarefas técnicas nem escrever código antes do usuário ler e aprovar o FRD.
 3. **Derivação Determinística:** O `spec.md` traduz os critérios do FRD para a sintaxe matemática EARS (`SHALL`).
+4. **Retroalimentação Contínua (Living Specs):** Se durante a homologação (UAT) ou evolução do código uma regra de negócio, fluxo de tela ou critério for alterado, o `frd.md` (e o `PRD.md`, se afetar escopo macro de módulos) deve ser atualizado imediatamente. O PRD e o FRD devem sempre representar o produto real em execução.
