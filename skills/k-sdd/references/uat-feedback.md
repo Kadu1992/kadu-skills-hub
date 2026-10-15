@@ -23,19 +23,15 @@ O **UAT Feedback Loop do `k-sdd`** fecha essa lacuna.
 
 ```mermaid
 graph TD
-    A[1. Entrada Fluida: Áudio, Print com Setas, Texto] --> B[2. IA gera feedback.md com Checklist FB-01]
+    A[1. Relato de Homologação do Usuário] --> B[2. IA gera feedback.md com Checklist FB-01]
     B --> C[3. IA mapeia na spec.md pending e atualiza frd.md]
     C --> D[4. IA cria Nova Fase em tasks.md com Gates]
     D --> E[5. Execução -> Gates -> Commit Coeso da Fase]
     E --> F[6. Reconciliação Total: feedback, spec, frd, design, PRD, STATE]
 ```
 
-### Etapa 1: Entrada Fluida do Usuário
-O usuário não precisa formatar nada. Ele pode:
-* Gravar um áudio no microfone do chat;
-* Enviar um print com setas ou anotações visuais apontando o erro/ajuste;
-* Digitar tópicos soltos no chat;
-* Escrever livremente suas percepções de teste.
+### Etapa 1: Relato de Homologação pelo Usuário
+O usuário não precisa formatar nada. Ele relata livremente suas observações de teste (apontamentos de bugs, comportamentos inesperados, ajustes de interface ou refinamentos de regras de negócio).
 
 ### Etapa 2: Estruturação do `feedback.md`
 A IA cria (ou atualiza) o arquivo `.specs/features/[feature]/feedback.md` com caixas de seleção numeradas:
@@ -44,7 +40,7 @@ A IA cria (ou atualiza) o arquivo `.specs/features/[feature]/feedback.md` com ca
 # UAT Feedback: [Nome da Feature]
 
 ## Rodada 1 - [Data]
-- **Entrada do Usuário:** [Texto, transcrição de áudio ou resumo de print]
+- **Entrada do Usuário:** [Relato ou síntese da observação de teste]
 
 ### Checklist de Ajustes Solicitados
 - [ ] **FB-01**: Alinhar botões de prazo lado a lado no mobile sem espremer -> *Task: T8*

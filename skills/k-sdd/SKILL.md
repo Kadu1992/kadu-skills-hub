@@ -105,7 +105,7 @@ Você pode apenas conversar naturalmente em linguagem natural ou utilizar os ata
 | `/k-sdd new-project <desc>` | Inicia um sistema do zero gerando o `PRD.md` e o `DESIGN.md`. | [prd-frd.md](references/prd-frd.md) / [stitch-design.md](references/stitch-design.md) |
 | `/k-sdd init-feature <nome>` | Inicia uma feature criando o `frd.md` (Problema, Solução, Constraints, Critérios). | [prd-frd.md](references/prd-frd.md) |
 | `/k-sdd` | Deriva a especificação técnica (`spec.md`) e quebra em fases de tarefas com gates (`tasks.md`). | [specify.md](references/specify.md) / [tasks.md](references/tasks.md) |
-| `/k-sdd uat` | Abre a homologação no `feedback.md`, processa áudio/texto e cria a fase de correção. | [uat-feedback.md](references/uat-feedback.md) |
+| `/k-sdd uat` | Abre a homologação no `feedback.md`, processa observações de teste e cria a fase de correção. | [uat-feedback.md](references/uat-feedback.md) |
 | `Resume work / Continuar` | Lê `STATE.md` (Handoff) e reconcilia com Git para propor o próximo passo. | [memory.md](references/memory.md) |
 
 ---
