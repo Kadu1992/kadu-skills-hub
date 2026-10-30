@@ -90,8 +90,8 @@ projeto/
             ├── spec.md         # Requisitos técnicos EARS + Requirement Traceability
             ├── design.md       # Arquitetura e componentes da feature (se complexo)
             ├── tasks.md        # Fases sequenciais e Tasks com Gates
-            ├── validation.md   # Relatório do Verifier (testes automáticos + evidências)
-            └── feedback.md     # Checklist rastreável de UAT (- [ ] FB-01) com commits
+            ├── validation.md   # Relatório do Verifier (testes automáticos + UATs com checkbox reativo riscado)
+            └── feedback.md     # Checklist rastreável de UAT (- [ ] FB-01) com checkbox reativo riscado (<style>)
 ```
 
 ---

@@ -211,6 +211,15 @@ The Verifier returns this block to the orchestrator after completing all checks:
 ## Validation Report Template (`.specs/features/[feature]/validation.md`)
 
 ```markdown
+<style>
+  li.task-list-item:has(input:checked) {
+    opacity: 0.35;
+    text-decoration: line-through;
+    filter: grayscale(100%);
+    transition: all 0.2s ease-in-out;
+  }
+</style>
+
 # [Feature] Validation
 
 **Date**: [YYYY-MM-DD]
@@ -255,13 +264,12 @@ The Verifier returns this block to the orchestrator after completing all checks:
 
 ---
 
-## Interactive UAT Results (if performed)
+## Interactive UAT Results (Homologação Humana)
+*Checklist reativo: ao marcar o checkbox [x], o item é automaticamente riscado e suavizado com 35% de opacidade via CSS.*
 
-| #   | Test        | Result   | Details                                         |
-| --- | ----------- | -------- | ----------------------------------------------- |
-| 1   | [Test name] | ✅ Pass  | -                                               |
-| 2   | [Test name] | ❌ Issue | [Verbatim user response] - Severity: [inferred] |
-| 3   | [Test name] | ⏭️ Skip  | [Reason]                                        |
+- [ ] **UAT-01**: [Cenário de teste / User Story] — *Critério de aceite*
+- [ ] **UAT-02**: [Cenário de teste / User Story] — *Critério de aceite*
+- [ ] **UAT-03**: [Cenário de teste / User Story] — *Critério de aceite*
 
 ---
 

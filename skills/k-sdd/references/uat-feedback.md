@@ -34,9 +34,18 @@ graph TD
 O usuário não precisa formatar nada. Ele relata livremente suas observações de teste (apontamentos de bugs, comportamentos inesperados, ajustes de interface ou refinamentos de regras de negócio).
 
 ### Etapa 2: Estruturação do `feedback.md`
-A IA cria (ou atualiza) o arquivo `.specs/features/[feature]/feedback.md` com caixas de seleção numeradas:
+A IA cria (ou atualiza) o arquivo `.specs/features/[feature]/feedback.md` com o bloco de estilo reativo e caixas de seleção numeradas:
 
 ```markdown
+<style>
+  li.task-list-item:has(input:checked) {
+    opacity: 0.35;
+    text-decoration: line-through;
+    filter: grayscale(100%);
+    transition: all 0.2s ease-in-out;
+  }
+</style>
+
 # UAT Feedback: [Nome da Feature]
 
 ## Rodada 1 - [Data]
@@ -47,6 +56,7 @@ A IA cria (ou atualiza) o arquivo `.specs/features/[feature]/feedback.md` com ca
 - [ ] **FB-02**: Alterar status inicial de captura para 'novo' (não agendado) -> *Task: T9*
 - [ ] **FB-03**: Documentar regra de transição de status no CRM -> *Task: T10*
 ```
+*(Nota de Usabilidade: Ao marcar `[x]` no checkbox — seja pelo clique do usuário no Markdown ou pela atualização da IA — o item é automaticamente riscado e suavizado visualmente com opacidade reduzida via CSS).*
 
 ### Etapa 3: Rastreabilidade na `spec.md` e Alinhamento no `frd.md`
 1. A IA abre a `spec.md` da feature e adiciona os novos critérios de aceite derivados do feedback na tabela de **Requirement Traceability** com status inicial **`pending`**:
