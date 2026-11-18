@@ -1,6 +1,6 @@
 ---
 name: k-sdd
-description: Metodologia Spec-Driven Development (P-E-R-A) para engenharia de software agêntica de alta precisão. Cobre desde o nascimento do produto (PRD em .specs/PRD.md) ou da funcionalidade (FRD com os 4 pilares em .specs/features/[feature]/frd.md), DESIGN.md nativo estilo Google Stitch sem MCP, especificação técnica EARS, decomposição em Fases e Tasks atômicas com gates, Verifier independente com Discrimination Sensor (teste de mutação), UAT Feedback Loop com checklist rastreável (- [ ] FB-01) e commits coesos por fase, governança automática com AGENTS.md (idempotência tripla), guardião contra pular etapas (Step Gatekeeper) e sincronização upstream via sync_upstream.py. Triggers on "/k-sdd", "k-sdd", "novo projeto k-sdd", "nova feature k-sdd", "iniciar projeto sdd", "especificar feature", "discuss feature", "tasks", "implement", "validate", "verify work", "UAT", "feedback uat", "homologação", "record decision", "pause work", "resume work".
+description: Metodologia Spec-Driven Development (P-E-R-A) para engenharia de software agêntica de alta precisão. Cobre desde o nascimento do produto (PRD em .specs/PRD.md) ou da funcionalidade (FRD com os 4 pilares em .specs/features/[feature]/frd.md), DESIGN.md nativo estilo Google Stitch sem MCP, especificação técnica EARS, decomposição em Fases e Tasks atômicas com gates, Verifier independente com Discrimination Sensor (teste de mutação), UAT Feedback Loop com checklist rastreável (- [ ] FB-01) e painel Kanban em .specs/qa-uats.md com commits coesos por fase, governança automática com AGENTS.md (idempotência tripla), guardião contra pular etapas (Step Gatekeeper) e sincronização upstream via sync_upstream.py. Triggers on "/k-sdd", "k-sdd", "novo projeto k-sdd", "nova feature k-sdd", "iniciar projeto sdd", "especificar feature", "discuss feature", "tasks", "implement", "validate", "verify work", "UAT", "feedback uat", "homologação", "qa-uats", "/k-sdd qa", "record decision", "pause work", "resume work".
 license: CC-BY-4.0
 metadata:
   author: Kadu Amstetter - github.com/Kadu1992
@@ -84,6 +84,7 @@ projeto/
     ├── PRD.md                  # PRD do Sistema inteiro (visão macro + módulos com checks)
     ├── STATE.md                # Decisões arquiteturais (AD-NNN) e snapshot de handoff
     ├── LESSONS.md / json       # Lições aprendidas retroalimentadas pelo Verifier
+    ├── qa-uats.md              # Painel Kanban de QA-UATs em Markdown (observabilidade multi-agente e homologação)
     └── features/
         └── [feature]/
             ├── frd.md          # Feature Requirements Document (os 4 pilares de Quintanilha)
@@ -106,6 +107,7 @@ Você pode apenas conversar naturalmente em linguagem natural ou utilizar os ata
 | `/k-sdd init-feature <nome>` | Inicia uma feature criando o `frd.md` (Problema, Solução, Constraints, Critérios). | [prd-frd.md](references/prd-frd.md) |
 | `/k-sdd` | Deriva a especificação técnica (`spec.md`) e quebra em fases de tarefas com gates (`tasks.md`). | [specify.md](references/specify.md) / [tasks.md](references/tasks.md) |
 | `/k-sdd uat` | Abre a homologação no `feedback.md`, processa observações de teste e cria a fase de correção. | [uat-feedback.md](references/uat-feedback.md) |
+| `/k-sdd qa` / `qa-uats` | Lê, atualiza ou inicializa o Painel de QA-UATs em Markdown (`.specs/qa-uats.md`). | [qa-uats.md](references/qa-uats.md) |
 | `Resume work / Continuar` | Lê `STATE.md` (Handoff) e reconcilia com Git para propor o próximo passo. | [memory.md](references/memory.md) |
 
 ---

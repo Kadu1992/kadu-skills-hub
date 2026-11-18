@@ -35,6 +35,7 @@ meu-projeto/
     ├── PRD.md                  # PRD do Sistema (visão macro do produto + mapa de módulos)
     ├── STATE.md                # Memória viva (decisões AD-NNN e snapshot de handoff)
     ├── LESSONS.md / json       # Lições aprendidas retroalimentadas após testes
+    ├── qa-uats.md              # Painel Kanban de QA-UATs em Markdown (observabilidade e homologação)
     └── features/
         └── [feature]/
             ├── frd.md          # Feature Requirements Document (os 4 pilares essenciais)
@@ -65,6 +66,7 @@ A skill pode ser utilizada de forma **100% fluida em linguagem natural** (a IA i
 * `/k-sdd init-feature <nome>` ➔ Inicia uma nova funcionalidade, gerando o `frd.md` (Problema, Solução, Constraints e Critérios de Aceite).
 * `/k-sdd` ➔ Gera a especificação técnica formal (`spec.md`) e quebra em fases de tarefas com gates (`tasks.md`).
 * `/k-sdd uat` ➔ Abre o checklist no `feedback.md`, processa seu feedback de homologação (áudio ou texto) e cria a fase de correção com commits coesos.
+* `/k-sdd qa` / `qa-uats` ➔ Lê ou atualiza o Painel de QA-UATs em Markdown (`.specs/qa-uats.md`) para acompanhamento multi-agente.
 
 ---
 

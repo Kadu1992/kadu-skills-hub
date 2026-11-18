@@ -33,8 +33,8 @@ graph TD
 ### Etapa 1: Relato de Homologação pelo Usuário
 O usuário não precisa formatar nada. Ele relata livremente suas observações de teste (apontamentos de bugs, comportamentos inesperados, ajustes de interface ou refinamentos de regras de negócio).
 
-### Etapa 2: Estruturação do `feedback.md`
-A IA cria (ou atualiza) o arquivo `.specs/features/[feature]/feedback.md` com o bloco de estilo reativo e caixas de seleção numeradas:
+### Etapa 2: Estruturação do `feedback.md` e Atualização do Painel `.specs/qa-uats.md`
+A IA cria (ou atualiza) o arquivo `.specs/features/[feature]/feedback.md` com o bloco de estilo reativo e caixas de seleção numeradas, e simultaneamente registra ou atualiza os cartões correspondentes no painel macro de homologação em `.specs/qa-uats.md` (consulte [qa-uats.md](qa-uats.md) para o guia completo do painel):
 
 ```markdown
 <style>
