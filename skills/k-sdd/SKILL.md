@@ -66,8 +66,9 @@ A documentação nunca mente sobre o código. Ao aprovar e resolver itens de hom
   - `validation.md` (cenários de homologação com evidências).
 - **Proibido Documento Fantasma:** Nenhum documento pode ficar defasado em relação ao código real entregue.
 
-### 6. Carregamento de Arquivos e Scripts da Skill
+### 6. Carregamento de Arquivos, Agentes e Scripts da Skill
 - Arquivos de referência moram sob `references/` na pasta da própria skill.
+- Prompts prontos da tríade de agentes moram sob `agents/` (`triagem.md`, `orquestrador.md`, `operario.md`) para inicialização em qualquer harness (consulte [agents.md](references/agents.md)).
 - Scripts executáveis moram sob `scripts/` na pasta da própria skill. Execute via:
   `python3 <skill-dir>/scripts/<nome>.py ...` passando `--root` se necessário.
 - Dados do projeto moram em `.specs/` e na raiz do projeto alvo (`/DESIGN.md`, `/AGENTS.md`).
@@ -108,6 +109,7 @@ Você pode apenas conversar naturalmente em linguagem natural ou utilizar os ata
 | `/k-sdd` | Deriva a especificação técnica (`spec.md`) e quebra em fases de tarefas com gates (`tasks.md`). | [specify.md](references/specify.md) / [tasks.md](references/tasks.md) |
 | `/k-sdd uat` | Abre a homologação no `feedback.md`, processa observações de teste e cria a fase de correção. | [uat-feedback.md](references/uat-feedback.md) |
 | `/k-sdd qa` / `qa-uats` | Lê, atualiza ou inicializa o Painel de QA-UATs em Markdown (`.specs/qa-uats.md`). | [qa-uats.md](references/qa-uats.md) |
+| `/k-sdd agents` | Exibe e referencia os prompts da tríade de agentes (Triagem, Orquestrador, Operário). | [agents.md](references/agents.md) |
 | `Resume work / Continuar` | Lê `STATE.md` (Handoff) e reconcilia com Git para propor o próximo passo. | [memory.md](references/memory.md) |
 
 ---
