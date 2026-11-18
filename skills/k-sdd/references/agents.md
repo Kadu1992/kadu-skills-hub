@@ -1,12 +1,12 @@
-# Guia: Os 3 Agentes Especialistas da Esteira k-sdd (Multi-Harness)
+# Guia: Tríade de Agentes de Homologação k-sdd (Multi-Harness)
 
-> **Objetivo:** Documentar a tríade oficial de agentes de QA/UAT do framework `k-sdd` e demonstrar como instanciá-los e utilizá-los em qualquer harness de IA (Orca ADE, Gemini CLI / Antigravity, Claude Code, Cursor, Windsurf ou Aider).
+> **Objetivo:** Estabelecer a governança de papéis, a regra de ouro do pool de operários com afinidade de contexto (*Sticky Threading*) e a arquitetura agnóstica para instanciação dos 3 agentes em qualquer ambiente ou harness de IA.
 
 ---
 
-## 1. Visão Geral da Tríade de Agentes
+## 1. Princípio Arquitetural: Separação Estrita de Responsabilidades
 
-Para garantir máxima separação de responsabilidades e evitar conflitos em arquivos durante a homologação humana, o `k-sdd` divide a esteira em 3 papéis especializados:
+Para eliminar conflitos no Git e impedir sobreposição de arquivos durante a homologação humana, o `k-sdd` isola o trabalho em 3 papéis autônomos:
 
 ```
 [ Usuário / Humano ]
@@ -34,42 +34,36 @@ Para garantir máxima separação de responsabilidades e evitar conflitos em arq
 | :--- | :--- | :--- | :--- |
 | **Triagem** | [`agents/triagem.md`](../agents/triagem.md) | Receber relatos de teste do usuário em menos de 3s e cadastrar como `🔴 reprovada` em `.specs/qa-uats.md`. | Nunca toca no código nem em arquivos `.specs/**`. |
 | **Orquestrador** | [`agents/orquestrador.md`](../agents/orquestrador.md) | Coordenar o pool de operários, despachar tasks atômicas e ser o **único escriba oficial** dos documentos vivos k-sdd (`feedback.md`, `spec.md`, `frd.md`, etc.). | Nunca escreve código de implementação diretamente. |
-| **Operário** | [`agents/operario.md`](../agents/operario.md) | Foco cirúrgico no arquivo dominante da sua UAT, rodar gates de build, validar visualmente no navegador e reportar `🟢 corrigida`. | Nunca edita arquivos de `.specs/**` (exceto o status no painel). |
+| **Operário** | [`agents/operario.md`](../agents/operario.md) | Foco cirúrgico no arquivo dominante da sua UAT, rodar gates de build, validar visualmente no navegador e reportar `🟢 corrigida`. | Nunca edita arquivos de `.specs/**` (exceto a sua linha no painel). |
 
 ---
 
-## 2. Como Utilizar em Diferentes Harnesses
+## 2. Regra de Ouro do Pool de Operários: Numeração e Afinidade Estrita (Sticky Threading)
 
-### 2.1. No Orca ADE
-No Orca, os agentes podem ser disparados através do CLI nativo de orquestração:
-- **Triagem:** Aba persistente ou comando rápido apontando para `agents/triagem.md` (ou `C:/Users/55119/.orca/roles/Triagem.md`).
-- **Orquestrador:** Coordenador do Run de homologação (`orca orchestration run-create --objective "Homologação Feature X"`).
-- **Operários:** Spawns dinâmicos sob demanda em abas ordenadas (`agent 1`, `agent 2`...):
-  ```bash
-  orca orchestration worker-start --task <task_id> --worktree current --agent antigravity --model gemini-3.8-flash --effort high --json
-  orca terminal rename --terminal <worker_terminal_handle> --title "agent N - UAT-NN" --json
-  ```
+### Regra 1: Numeração Sequencial Limpa
+Os operários recebem identificadores numéricos contínuos:
+`agent1`, `agent2`, `agent3`, `agent4`...
 
-### 2.2. No Antigravity CLI / Gemini API
-Você pode registrar os agentes usando `define_subagent` ou acioná-los diretamente:
-```python
-# Exemplo de invocação do Orquestrador:
-invoke_subagent(
-    TypeName="qa-orchestrator",
-    Role="Orquestrador k-sdd",
-    Prompt="Leia .specs/qa-uats.md e assuma a coordenação das UATs pendentes seguindo as diretrizes de agents/orquestrador.md."
-)
-```
+### Regra 2: Afinidade Estrita de Contexto (Sticky Threading)
+- **Um agente é dono da sua frente até o fim:**
+  Quando o Orquestrador despacha o `agent1` para corrigir um problema (ex: *Elemento X* ou *UAT-01*), esse agente carrega em sua memória ativa (thread) os arquivos lidos, as tentativas e a lógica da solução.
+- **Se o usuário testar e reprovar no reteste:**
+  O Orquestrador **devolve a correção obrigatoriamente para o mesmo agente (`agent1`)**. Jamais crie um novo operário para resolver o que o `agent1` já estava tratando enquanto ele estiver disponível, pois isso descartaria o contexto quente e consumiria tokens desnecessários.
+- **Paralelismo Seguro:**
+  Demandas em arquivos diferentes e independentes abrem novos operários na ordem numérica (`agent2`, `agent3`...).
+- **Anti-Conflito:** Dois operários nunca tocam o mesmo arquivo simultaneamente.
 
-### 2.3. No Claude Code / Codex CLI
-Inicie sessões ou sub-agentes passando o prompt do arquivo correspondente:
-```bash
-# Operário focado na UAT-01:
-claude --prompt "$(cat agents/operario.md) - Assuma a correção da UAT-01 descrita em .specs/qa-uats.md"
-```
+---
 
-### 2.4. No Cursor / Windsurf / VS Code
-Adicione os prompts como regras de customização ou Custom Agents na pasta `.cursor/rules/` ou `.windsurfrules`:
-- Copie o conteúdo de `agents/triagem.md` para uma regra `@triagem`;
-- Copie o conteúdo de `agents/orquestrador.md` para uma regra `@orquestrador`;
-- Copie o conteúdo de `agents/operario.md` para uma regra `@operario`.
+## 3. Como os Agentes Operam em Diferentes Harnesses
+
+A skill `k-sdd` define os **contratos, papéis e fluxos**. A IA que estiver executando deve ler essas definições e adaptá-las para os comandos e ferramentas nativas do seu ambiente:
+
+- **No Orca ADE / Herdr / T3 Code:**
+  O orquestrador gerencia os operários através de terminais dedicados, abas nomeadas (`agent1 - UAT-01`) ou comandos nativos de orquestração e worktrees.
+- **No Gemini CLI / Antigravity (`agy`):**
+  A orquestração é feita via subagentes nativos (`invoke_subagent`, `/agents`, `define_subagent`), aproveitando as ferramentas de sistema de arquivos e comandos.
+- **No Claude Code / Codex CLI:**
+  Subagentes são disparados via linha de comando ou threads dedicadas passando o conteúdo de `agents/operario.md`.
+- **No Cursor / Windsurf / VS Code:**
+  As roles podem ser adicionadas como regras customizadas (`.cursor/rules/`, `.windsurfrules`) ou como agentes no chat (`@triagem`, `@orquestrador`, `@operario`).

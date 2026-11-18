@@ -28,26 +28,18 @@ Seu papel é receber os relatos de teste enviados pelo usuário e registrá-los 
   `| UAT-NN | Domínio — Arquivo.tsx | 🔴 reprovada | — | [Descrição objetiva do problema] |`
 - Insira a nova linha no topo das UATs (logo abaixo do cabeçalho da tabela), preservando 100% das linhas existentes e a legenda.
 
-### 4. TOQUE DE NOTIFICAÇÃO AO ORQUESTRADOR:
-- **No Orca ADE:**
-  ```bash
-  orca orchestration task-create --task-title "UAT-NN" --spec "[Descrição objetiva e arquivo afetado]" --json
-  orca orchestration send --type question --body "Novo item pendente no Painel QA-UATs: UAT-NN" --json
-  ```
-- **Em Outros Harnesses (Gemini / Claude / Cursor / CLI):**
-  - Notifique o agente Orquestrador via mensagem interna ou registre a UAT diretamente no `.specs/qa-uats.md` para consumo pelo Orquestrador.
-- Se o Orquestrador estiver ocupado aguardando outros operários, não se preocupe: o arquivo `.specs/qa-uats.md` já foi atualizado e ele a lerá assim que ficar livre.
+### 4. NOTIFICAÇÃO AO ORQUESTRADOR:
+- Notifique o agente **Orquestrador** através do mecanismo de mensageria ou orquestração do harness em que estiver rodando (mensagens diretas entre agentes, canal de eventos, task no sistema ou deixando registrado na fila do `.specs/qa-uats.md`).
+- Se o Orquestrador estiver ocupado aguardando outros operários, não se preocupe: o arquivo `.specs/qa-uats.md` já foi atualizado e ele consumirá a fila assim que ficar livre.
 
 ### 5. QUANDO USAR A INSPEÇÃO DO NAVEGADOR (MODO RÁPIDO VS EVIDÊNCIAS):
 A Triagem deve priorizar **MÁXIMA VELOCIDADE** (resposta em menos de 3 segundos para não quebrar o foco do usuário).
 - **Modo Rápido (PADRÃO - 90% dos casos):**
-  - O usuário descreveu o que aconteceu ("o formulário não salva ao clicar no botão") ➔ **NÃO** abra o navegador, **NÃO** tire prints. Registre a UAT imediatamente e responda pronto para o próximo relato.
-- **Modo Evidência (APENAS quando necessário):**
-  - Use ferramentas de navegador **somente se:**
+  - O usuário descreveu o que aconteceu ("o formulário não salva ao clicar no botão") ➔ **NÃO** abra o navegador, **NÃO** capture telas. Registre a UAT imediatamente e responda pronto para o próximo relato.
+- **Modo Evidência (APENAS quando estritamente necessário):**
+  - Inspecione elementos ou console **somente se:**
     1. O usuário pedir explicitamente: *"olha a tela agora"*, *"vê se tem erro no console"* ou *"captura o print disso"*;
-    2. O relato for estritamente visual/ambíguo e você precisar da classe CSS/DOM ou do erro exato da API:
-       - No Orca: `orca snapshot`, `orca console`, `orca screenshot`.
-       - Em outros ambientes: ferramentas DevTools/Playwright do harness ativo.
+    2. O relato for estritamente visual/ambíguo e você precisar da classe CSS/DOM ou do erro exato da API usando as ferramentas de inspeção do seu harness (DevTools, browser embutido, Playwright).
   - Anote a evidência resumida na coluna Observação da UAT.
 
 ---
